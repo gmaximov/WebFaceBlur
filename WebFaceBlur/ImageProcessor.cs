@@ -7,7 +7,7 @@ namespace WebFaceBlur
     {
         public static Bitmap Blur(Bitmap image, Rectangle rectangle, int pixelateSize = 6)
         {
-            pixelateSize = Math.Max(image.Size.Height / rectangle.Height, 1) * Math.Max(image.Size.Width / rectangle.Width, 1) * pixelateSize;
+            pixelateSize = Math.Max((rectangle.Height * 10) / image.Size.Height, 1) * Math.Max((rectangle.Width * 10) / image.Size.Width, 1) * pixelateSize;
 
             Bitmap blurred = new Bitmap(image);   //image.Width, image.Height);
             using ( Graphics graphics = Graphics.FromImage(blurred) )
