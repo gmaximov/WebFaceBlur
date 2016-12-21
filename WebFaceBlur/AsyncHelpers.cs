@@ -60,7 +60,6 @@ namespace WebFaceBlur
                 catch ( Exception e )
                 {
                     synch.InnerException = e;
-                    throw;
                 }
                 finally
                 {
