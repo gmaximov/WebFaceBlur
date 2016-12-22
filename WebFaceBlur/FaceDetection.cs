@@ -13,6 +13,7 @@ namespace WebFaceBlur
 {
     class FaceDetection
     {
+        private static string key = "";
         private static IFaceServiceClient faceServiceClient = new FaceServiceClient(key);
 
         public static Rectangle[] Detect(string url)
