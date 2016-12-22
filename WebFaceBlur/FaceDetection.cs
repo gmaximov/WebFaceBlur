@@ -13,10 +13,10 @@ namespace WebFaceBlur
 {
     class FaceDetection
     {
-        private static string key = "";
+        private static string key = "7beaebe19dec4e7d9545db3ef0cba2bf";
         private static IFaceServiceClient faceServiceClient = new FaceServiceClient(key);
 
-        public static FaceRectangle[] Detect(string url)
+        public static Rectangle[] Detect(string url)
         {
             if ( key == "" )
             {
@@ -25,12 +25,12 @@ namespace WebFaceBlur
             try
             {
                 var faces = AsyncHelpers.RunSync<Face[]>(() => faceServiceClient.DetectAsync(url));
-                var faceRects = faces.Select(face => face.FaceRectangle);
+                var faceRects = faces.Select(face => new Rectangle(face.FaceRectangle.Left, face.FaceRectangle.Top, face.FaceRectangle.Width, face.FaceRectangle.Height) );
                 return faceRects.ToArray();
             }
             catch ( Exception )
             {
-                return new FaceRectangle[0];
+                return new Rectangle[0];
             }
         }
     }

@@ -59,7 +59,7 @@ namespace WebFaceBlur.Controllers
 
                     if ( mime.ToLower().Contains("image") )
                     {
-                        return "<body><img src=" + uri.ToString() + "></body>";
+                        return "<img src=" + uri.ToString() + ">";
                     }
                     else if ( mime.ToLower().Contains("text") )
                     {

@@ -20,42 +20,40 @@ namespace WebFaceBlur
                 return;
             }
 
+            var request = (HttpWebRequest) WebRequest.Create(context.Request["src"]);
 
-            var httpWebRequest = (HttpWebRequest) WebRequest.Create(context.Request["src"]);
-            var httpWebResponse = (HttpWebResponse) httpWebRequest.GetResponse();
-            // Get the stream associated with the response.
-            var receiveStream = httpWebResponse.GetResponseStream();
-            var mime = httpWebResponse.ContentType;
-
-            var stream = new MemoryStream();
-            receiveStream.CopyTo(stream);
-
-            FaceRectangle[] faceRects = FaceDetection.Detect(context.Request["src"]);
-
-            if ( faceRects.Length > 0 )
+            using ( var response = (HttpWebResponse) request.GetResponse() )
             {
-                stream.Position = 0;
-                Bitmap bitmap = new Bitmap(stream);
-                foreach ( var faceRect in faceRects )
+                using ( var responseStream = response.GetResponseStream() )
                 {
+                    var mime = response.ContentType;
+                    var stream = new MemoryStream();
 
-                    bitmap = ImageProcessor.Blur(bitmap,
-                        new Rectangle(faceRect.Left, faceRect.Top, faceRect.Width, faceRect.Height));
+                    responseStream.CopyTo(stream);
+
+                    if ( mime.ToLower().Contains("image") )
+                    {
+                        Rectangle[] faceRects = FaceDetection.Detect(context.Request["src"]);
+
+                        
+                        if ( faceRects.Length > 0 )
+                        {
+                            stream.Position = 0;
+                            Bitmap bitmap = new Bitmap(stream);
+
+                            bitmap = ImageProcessor.Blur(bitmap, faceRects);
+
+                            stream.Position = 0;
+                            bitmap.Save(stream, ImageFormat.Jpeg);
+                        }
+                    }
+                    stream.Position = 0;
+                    context.Response.StatusCode = (int) HttpStatusCode.OK;
+                    context.Response.ContentType = mime;
+                    context.Response.BinaryWrite(stream.ToArray());
                 }
-                stream.Position = 0;
-                bitmap.Save(stream, ImageFormat.Jpeg);
             }
-
-            stream.Position = 0;
-            context.Response.StatusCode = (int) HttpStatusCode.OK;
-            context.Response.ContentType = mime;
-            context.Response.BinaryWrite(stream.ToArray());
-
-            httpWebResponse.Close();
-            try
-            {}
-            catch
-            {}
+            
         }
 
         public bool IsReusable
