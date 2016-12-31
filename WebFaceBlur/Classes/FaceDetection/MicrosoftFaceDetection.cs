@@ -13,7 +13,7 @@ namespace WebFaceBlur
 {
     class MicrosoftFaceDetection : IFaceDetection
     {
-        private static string key = "5d4b63e1117d4055a64e4365fe94fb0c";
+        private static string key = "";
         private static IFaceServiceClient faceServiceClient = new FaceServiceClient(key);
 
         public async Task<Rectangle[]> Detect(Uri uri)
