@@ -25,12 +25,7 @@ namespace WebFaceBlur.Tests
         {
             TestRouteMatch("~/?path=" + HttpUtility.UrlEncode("https://google.com/test") , "Default", "Index");
         }
-
-        [TestMethod]
-        public void Test_Default_Open_anysite_Fail()
-        {
-            TestRouteFail("~/?path=" + HttpUtility.UrlEncode("http://metanit.com/adsadasd/asdasdasda"));
-        }
+        
 
 
         [TestMethod]
