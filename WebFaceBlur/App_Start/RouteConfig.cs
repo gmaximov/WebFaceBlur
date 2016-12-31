@@ -14,9 +14,15 @@ namespace WebFaceBlur
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "AdressFormHandler",
+                url: "AdressForm",
+                defaults: new { controller = "AdressForm", action = "Index" }
+            );
+            routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Default", action = "Index", id = UrlParameter.Optional }
+                url: "{*path}",
+                defaults: new { controller = "Default", action = "Index", path = UrlParameter.Optional }
+
             );
         }
     }

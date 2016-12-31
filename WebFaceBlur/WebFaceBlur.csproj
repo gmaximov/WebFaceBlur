@@ -60,6 +60,7 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -69,7 +70,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -110,16 +110,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="AsyncHelpers.cs" />
+    <Compile Include="Classes\Base64Helper.cs" />
+    <Compile Include="Classes\ImageCache\DetectedImage.cs" />
+    <Compile Include="Classes\FaceDetection\FaceDetection.cs" />
+    <Compile Include="Classes\ImageCache\ImageCache.cs" />
+    <Compile Include="Classes\ImageCache\ImageCacheInMemory.cs" />
+    <Compile Include="Classes\Processors\DefaultContentProcessor.cs" />
+    <Compile Include="Classes\HttpClientWrapper.cs" />
+    <Compile Include="Interfaces\IHtmlContentProcessor.cs" />
+    <Compile Include="Classes\Processors\ImageContentProcessor.cs" />
+    <Compile Include="Classes\Processors\HtmlContentProcessor.cs" />
+    <Compile Include="Classes\Processors\Processor.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
-    <Compile Include="FaceDetection.cs" />
+    <Compile Include="Controllers\AdressFormController.cs" />
+    <Compile Include="Classes\FaceDetection\MicrosoftFaceDetection.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="ImageHandler.ashx.cs">
-      <DependentUpon>ImageHandler.ashx</DependentUpon>
-    </Compile>
-    <Compile Include="ImageProcessor.cs" />
+    <Compile Include="Classes\Blur.cs" />
+    <Compile Include="Interfaces\IFaceDetection.cs" />
+    <Compile Include="Interfaces\IContentProcessor.cs" />
+    <Compile Include="Interfaces\IImageCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -128,7 +139,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="ImageHandler.ashx" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout_copy.cshtml" />
     <Content Include="Views\Default\Index.cshtml" />
@@ -143,6 +153,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Form\" />
+    <Folder Include="Views\Image\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

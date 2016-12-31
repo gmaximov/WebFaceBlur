@@ -11,12 +11,12 @@ using System.Web;
 
 namespace WebFaceBlur
 {
-    class FaceDetection
+    class MicrosoftFaceDetection : IFaceDetection
     {
-        private static string key = "";
+        private static string key = "5d4b63e1117d4055a64e4365fe94fb0c";
         private static IFaceServiceClient faceServiceClient = new FaceServiceClient(key);
 
-        public static Rectangle[] Detect(string url)
+        public async Task<Rectangle[]> Detect(Uri uri)
         {
             if ( key == "" )
             {
@@ -24,13 +24,13 @@ namespace WebFaceBlur
             }
             try
             {
-                var faces = AsyncHelpers.RunSync<Face[]>(() => faceServiceClient.DetectAsync(url));
+                var faces = await faceServiceClient.DetectAsync(uri.ToString());
                 var faceRects = faces.Select(face => new Rectangle(face.FaceRectangle.Left, face.FaceRectangle.Top, face.FaceRectangle.Width, face.FaceRectangle.Height) );
                 return faceRects.ToArray();
             }
             catch ( Exception )
             {
-                return new Rectangle[0];
+                return null;
             }
         }
     }

@@ -7,54 +7,9 @@ using System.Threading.Tasks;
 
 namespace WebFaceBlur
 {
-    internal class ImageProcessor
+    internal class Blur
     {
-        public static Bitmap Pixelate(Bitmap image, Rectangle rectangle, int pixelateSize = 7)
-        {
-            pixelateSize = Math.Max(rectangle.Size.Height / 100, 1) * Math.Max(rectangle.Size.Width / 100, 1) * pixelateSize;
-
-            Bitmap blurred = new Bitmap(image);   //image.Width, image.Height);
-            using ( Graphics graphics = Graphics.FromImage(blurred) )
-            {
-                // look at every pixel in the blur rectangle
-                for ( Int32 xx = rectangle.Left; xx < rectangle.Right; xx += pixelateSize )
-                {
-                    for ( Int32 yy = rectangle.Top; yy < rectangle.Bottom; yy += pixelateSize )
-                    {
-                        Int32 avgR = 0, avgG = 0, avgB = 0;
-                        Int32 blurPixelCount = 0;
-                        Rectangle currentRect = new Rectangle(xx, yy, pixelateSize, pixelateSize);
-
-                        // average the color of the red, green and blue for each pixel in the
-                        // blur size while making sure you don't go outside the image bounds
-                        for ( Int32 x = currentRect.Left; (x < currentRect.Right && x < image.Width); x++ )
-                        {
-                            for ( Int32 y = currentRect.Top; (y < currentRect.Bottom && y < image.Height); y++ )
-                            {
-                                Color pixel = blurred.GetPixel(x, y);
-
-                                avgR += pixel.R;
-                                avgG += pixel.G;
-                                avgB += pixel.B;
-
-                                blurPixelCount++;
-                            }
-                        }
-
-                        avgR = avgR / blurPixelCount;
-                        avgG = avgG / blurPixelCount;
-                        avgB = avgB / blurPixelCount;
-
-                        // now that we know the average for the blur size, set each pixel to that color
-                        graphics.FillRectangle(new SolidBrush(Color.FromArgb(avgR, avgG, avgB)), currentRect);
-                    }
-                }
-                graphics.Flush();
-            }
-            return blurred;
-        }
-
-        public static Bitmap Blur(Bitmap image, Rectangle[] rectangles)
+        public static Bitmap Process(Bitmap image, Rectangle[] rectangles)
         {
             Bitmap mainclone = new Bitmap(image);
             using ( Graphics g = Graphics.FromImage(mainclone) )
