@@ -9,21 +9,20 @@ namespace WebFaceBlur
 {
     public class ImageCacheInMemory : IImageCache
     {
-        private readonly TimeSpan cacheCleanThreshold;
-        private readonly TimeSpan cacheCleanPeriod;
+        private static readonly TimeSpan cacheCleanThreshold = TimeSpan.FromHours(5);
+        private static readonly  TimeSpan cacheCleanPeriod = TimeSpan.FromHours(1);
+        
 
         private Timer cacheCleaner;
 
         private Dictionary<string, DetectedImage> dict = new Dictionary<string, DetectedImage>();
 
-        public ImageCacheInMemory() : this(TimeSpan.FromHours(5), TimeSpan.FromHours(1))
+        public ImageCacheInMemory() : this(cacheCleanThreshold, cacheCleanPeriod)
         {
         }
         public ImageCacheInMemory(TimeSpan cacheCleanThreshold, TimeSpan cacheCleanPeriod)
         {
-            this.cacheCleanThreshold = cacheCleanThreshold;
-            this.cacheCleanPeriod = cacheCleanPeriod;
-            cacheCleaner = new Timer(CleanCache, null, TimeSpan.Zero, this.cacheCleanPeriod);
+            cacheCleaner = new Timer(CleanCache, null, TimeSpan.Zero, cacheCleanPeriod);
         }
 
         public Rectangle[] Get(string fileName, string checksum)
