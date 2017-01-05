@@ -12,21 +12,21 @@ namespace WebFaceBlur.Classes.Tests
     public class HttpClientWrapperTests
     {
         [TestMethod()]
-        public void GetContentTypeTest_Image()
+        public void GetContentType_Image_Test()
         {
             string str = HttpClientWrapper.GetContentType("http://www.iconsdb.com/icons/preview/white/square-xxl.png").Result;          
             Assert.IsTrue(str.Contains("image"));
         }
 
         [TestMethod()]
-        public void GetContentTypeTest_Image_PNG()
+        public void GetContentType_ImagePNG_Test()
         {
             string str = HttpClientWrapper.GetContentType("http://www.iconsdb.com/icons/preview/white/square-xxl.png").Result;
             Assert.IsTrue(str.Contains("image/png"));
         }
 
         [TestMethod()]
-        public void GetContentTypeTest_Html()
+        public void GetContentType_Html_Test()
         {
             string str = HttpClientWrapper.GetContentType("http://www.iconsdb.com/").Result;
             Assert.IsTrue(str.Contains("html"));

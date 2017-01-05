@@ -15,13 +15,13 @@ namespace WebFaceBlur.Tests
     public class RouteTests
     {
         [TestMethod]
-        public void Test_Default()
+        public void DefaultTest()
         {
             TestRouteMatch("~/Default", "Default", "Index");
         }
 
         [TestMethod]
-        public void Test_Default_Open_anysite()
+        public void DefaultOpenAnySiteTest()
         {
             TestRouteMatch("~/?path=" + HttpUtility.UrlEncode("https://google.com/test") , "Default", "Index");
         }
@@ -29,23 +29,22 @@ namespace WebFaceBlur.Tests
 
 
         [TestMethod]
-        public void Test_Default_Open_Empty()
+        public void DefaultOpenEmptyTest()
         {
             TestRouteMatch("~/", "Default", "Index");
         }
 
         [TestMethod]
-        public void Test_Adress_Open_Empty()
+        public void AdressOpenEmptyTest()
         {
             TestRouteMatch("~/AdressForm", "AdressForm", "Index");
         }
+
         [TestMethod]
-        public void Test_Image()
+        public void ImageTest()
         {
             TestRouteMatch("~/?path=" + HttpUtility.UrlEncode("https://blogs.msdn.microsoft.com/wp-content/themes/microsoft/images/ms-logo-gray.svg"), "Default", "Index");
         }
-
-
 
 
         private HttpContextBase CreateHttpContext(string targetUrl = null, string httpMethod = "GET")

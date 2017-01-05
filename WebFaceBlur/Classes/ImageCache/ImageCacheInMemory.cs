@@ -9,8 +9,8 @@ namespace WebFaceBlur
 {
     public class ImageCacheInMemory : IImageCache
     {
-        private static readonly TimeSpan cacheCleanThreshold = TimeSpan.FromHours(5);
-        private static readonly  TimeSpan cacheCleanPeriod = TimeSpan.FromHours(1);
+        private static TimeSpan cacheCleanThreshold = TimeSpan.FromDays(2);
+        private static TimeSpan cacheCleanPeriod = TimeSpan.FromDays(1);
         
 
         private Timer cacheCleaner;
@@ -22,6 +22,7 @@ namespace WebFaceBlur
         }
         public ImageCacheInMemory(TimeSpan cacheCleanThreshold, TimeSpan cacheCleanPeriod)
         {
+            ImageCacheInMemory.cacheCleanThreshold = cacheCleanThreshold;
             cacheCleaner = new Timer(CleanCache, null, TimeSpan.Zero, cacheCleanPeriod);
         }
 
@@ -48,9 +49,13 @@ namespace WebFaceBlur
             {
                 if ( dict.ContainsKey(fileName) )
                 {
-                    return;
+                    if ( dict[fileName].checksum == checksum )
+                    {
+                        return;
+                    }
+                    dict.Remove(fileName);
                 }
-                dict.Add(fileName, new DetectedImage(checksum, faceRects, DateTime.Now + this.cacheCleanThreshold));
+                dict.Add(fileName, new DetectedImage(checksum, faceRects, DateTime.Now + cacheCleanThreshold));
             }
         }
 

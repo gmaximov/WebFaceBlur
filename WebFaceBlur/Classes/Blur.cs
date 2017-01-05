@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace WebFaceBlur
 {
-    internal class Blur
+    public class Blur
     {
+        public static int blurStrength = 10;
+
         public static Bitmap Process(Bitmap image, Rectangle[] rectangles)
         {
             Bitmap mainclone = new Bitmap(image);
@@ -18,7 +21,12 @@ namespace WebFaceBlur
                 {
                     Bitmap cloneBitmap = image.Clone(rect, image.PixelFormat);
                     GaussianBlur gaussianBlur = new GaussianBlur(cloneBitmap);
-                    cloneBitmap = gaussianBlur.Process(8);
+                    cloneBitmap = gaussianBlur.Process(blurStrength);
+
+                    GraphicsPath path = new GraphicsPath();
+                    path.AddEllipse(rect);
+                    g.Clip = new Region(path);
+
                     g.DrawImage(cloneBitmap, rect.Left, rect.Top);
                 }
             }
