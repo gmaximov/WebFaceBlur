@@ -37,7 +37,7 @@ namespace WebFaceBlur.Tests
         [TestMethod]
         public void AdressOpenEmptyTest()
         {
-            TestRouteMatch("~/AdressForm", "AdressForm", "Index");
+            TestRouteMatch("~/AdressForm/Post", "AdressForm", "Post");
         }
 
         [TestMethod]
