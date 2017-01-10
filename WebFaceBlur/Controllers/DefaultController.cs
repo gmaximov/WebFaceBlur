@@ -1,14 +1,11 @@
-﻿using HtmlAgilityPack;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+
 namespace WebFaceBlur.Controllers
 {
     public class DefaultController : Controller
@@ -26,7 +23,7 @@ namespace WebFaceBlur.Controllers
                 {
                     throw new Exception();
                 }
-                
+
                 MemoryStream contentStream = null;
                 string contentType = string.Empty;
                 string contentHtml = string.Empty;
@@ -42,7 +39,7 @@ namespace WebFaceBlur.Controllers
 
                         contentType = response.Content.Headers.ContentType.MediaType;
 
-                        if( contentType.Contains("html") )
+                        if ( contentType.Contains("html") )
                         {
                             contentHtml = await response.Content.ReadAsStringAsync();
                         }
@@ -64,7 +61,7 @@ namespace WebFaceBlur.Controllers
                     throw;
                 }
 
-                if(contentType == string.Empty )
+                if ( contentType == string.Empty )
                 {
                     throw new Exception();
                 }
@@ -96,6 +93,5 @@ namespace WebFaceBlur.Controllers
                 return View();
             }
         }
-        
     }
 }

@@ -1,2 +1,30 @@
-﻿@Html.Raw(ViewBag.Content)
+﻿<style type="text/css">
+    #webfaceblurframe {
+        position: fixed;
+        z-index: 1000;
 
+        left:10%;
+        top:20px;
+
+        width: 80%;
+        height: 90px;
+
+        background-color: white;
+        border:solid;
+    }
+</style>
+<iframe id="webfaceblurframe" scrolling="no" src="~/AdressForm/GetForm" frameborder="0"></iframe>
+
+@Html.Raw(ViewBag.Content)
+
+<script type="text/javascript">
+    document.body.onkeydown = function (e) {
+        if (e.keyCode == 71) {
+            toggle(document.getElementById("webfaceblurframe"));
+        }
+    }
+
+    function toggle(el) {
+        el.style.display = (el.style.display == 'none') ? '' : 'none'
+    }
+</script>

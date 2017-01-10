@@ -8,10 +8,15 @@ namespace WebFaceBlur.Controllers
 {
     public class AdressFormController : Controller
     {
-        [HttpPost]
-        public ActionResult Index(FormCollection formCollection)
+        public ActionResult GetForm()
         {
-            string path = formCollection["path"].ToString();          
+            return View("Form");
+        }
+
+        [HttpPost]
+        public ActionResult Post(FormCollection formCollection)
+        {
+            string path = formCollection["path"].ToString();
             if ( path == null )
             {
                 return Redirect("~/");

@@ -15,14 +15,20 @@ namespace WebFaceBlur
 
             routes.MapRoute(
                 name: "AdressFormHandler",
-                url: "AdressForm",
-                defaults: new { controller = "AdressForm", action = "Index" }
+                url: "AdressForm/Post",
+                defaults: new { controller = "AdressForm", action = "Post" }
             );
+
+            routes.MapRoute(
+                name: "AdressForm",
+                url: "AdressForm/GetForm",
+                defaults: new { controller = "AdressForm", action = "GetForm" }
+            );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{*path}",
                 defaults: new { controller = "Default", action = "Index", path = UrlParameter.Optional }
-
             );
         }
     }
