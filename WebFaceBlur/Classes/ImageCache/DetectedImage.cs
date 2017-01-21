@@ -12,11 +12,10 @@ namespace WebFaceBlur
         public Rectangle[] faceRects;
         public DateTime expireTime;
 
-        public DetectedImage(string checksum, Rectangle[] faceRects, DateTime expireTime)
+        public DetectedImage(string checksum, Rectangle[] faceRects)
         {
             this.checksum = checksum;
             this.faceRects = faceRects;
-            this.expireTime = expireTime;
         }
     }
 }

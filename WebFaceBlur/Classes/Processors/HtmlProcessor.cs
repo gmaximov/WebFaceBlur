@@ -9,27 +9,32 @@ using System.Web;
 
 namespace WebFaceBlur
 {
-    public class HtmlContentProcessor : IHtmlContentProcessor
+    public class HtmlProcessor : IHtmlProcessorAsync
     {
-        public async Task<string> Process(string html, Uri uri)
+        private IHttpClientWrapperAsync httpClient;
+        private Uri uri;
+
+        public HtmlProcessor(IHttpClientWrapperAsync httpClient, Uri uri)
         {
-            HtmlDocument doc = new HtmlDocument();
-            doc.LoadHtml(html);
-            doc = FixLinks(doc, uri);
-            return doc.DocumentNode.OuterHtml;
+            this.httpClient = httpClient;
+            this.uri = uri;
         }
-        private HtmlDocument FixLinks(HtmlDocument doc, Uri uri)
+
+        public async Task<string> RunAsync()
         {
+            string htmlContent = await httpClient.GetStringAsync(uri);
+
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(htmlContent);
+
             FixTag(ref doc, uri, "img", "src", true, "?path=");
             FixTag(ref doc, uri, "a", "href", true, "?path=");
             FixTag(ref doc, uri, "link", "href");
             FixTag(ref doc, uri, "script", "src");
 
-            //FixTag(ref doc, uri, "form", "action");
-
-            return doc;
+            return doc.DocumentNode.OuterHtml;
         }
-        
+
         private void FixTag(ref HtmlDocument doc, Uri uri, string tag, string attribute, bool encode = false, string prependString = "")
         {
             var nodes = doc.DocumentNode.SelectNodes("//"+ tag +"/@" + attribute);

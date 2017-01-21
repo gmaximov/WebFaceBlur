@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace WebFaceBlur
 {
-    public interface IContentProcessor
+    public interface IDefaultProcessorAsync
     {
-        Task<Stream> Process(Stream stream, Uri uri);
+        Task<MemoryStream> RunAsync();
     }
 }

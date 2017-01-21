@@ -9,6 +9,6 @@ namespace WebFaceBlur
     public interface IImageCache
     {
         Rectangle[] Get(string fileName, string checksum);
-        void Put(string fileName, string checksum, Rectangle[] faceRects);
+        void Add(string fileName, string checksum, Rectangle[] faceRects);
     }
 }

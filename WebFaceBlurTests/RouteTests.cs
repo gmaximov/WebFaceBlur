@@ -41,6 +41,12 @@ namespace WebFaceBlur.Tests
         }
 
         [TestMethod]
+        public void AdressFormTest()
+        {
+            TestRouteMatch("~/AdressForm/GetForm", "AdressForm", "GetForm");
+        }
+
+        [TestMethod]
         public void ImageTest()
         {
             TestRouteMatch("~/?path=" + HttpUtility.UrlEncode("https://blogs.msdn.microsoft.com/wp-content/themes/microsoft/images/ms-logo-gray.svg"), "Default", "Index");

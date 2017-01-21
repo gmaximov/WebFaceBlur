@@ -4,8 +4,8 @@ using System.Threading.Tasks;
 
 namespace WebFaceBlur
 {
-    public interface IHtmlContentProcessor
+    public interface IHtmlProcessorAsync
     {
-        Task<string> Process(string html, Uri uri);
+        Task<string> RunAsync();
     }
 }
