@@ -9,6 +9,6 @@ namespace WebFaceBlur
 {
     public interface IDefaultProcessorAsync
     {
-        Task<MemoryStream> RunAsync();
+        Task<MemoryStream> RunAsync(Uri uri);
     }
 }

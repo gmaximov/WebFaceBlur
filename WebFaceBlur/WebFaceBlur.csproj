@@ -115,8 +115,10 @@
     <Compile Include="Classes\ImageCache\DetectedImage.cs" />
     <Compile Include="Classes\ImageCache\ImageCacheInMemory.cs" />
     <Compile Include="Classes\ImageCache\ImageCacheUtils.cs" />
+    <Compile Include="Classes\ImageEffect\FastGaussianBlur.cs" />
     <Compile Include="Classes\Processors\DefaultProcessor.cs" />
     <Compile Include="Classes\HttpClientWrapper.cs" />
+    <Compile Include="Interfaces\IBlurAlgorithm.cs" />
     <Compile Include="Interfaces\IDefaultProcessorAsync.cs" />
     <Compile Include="Interfaces\IHttpClientWrapper.cs" />
     <Compile Include="Interfaces\IHtmlProcessorAsync.cs" />
@@ -129,8 +131,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Blur.cs" />
+    <Compile Include="Classes\ImageEffect\CircularBlur.cs" />
     <Compile Include="Interfaces\IFaceDetection.cs" />
+    <Compile Include="Interfaces\IImageEffect.cs" />
     <Compile Include="Interfaces\IImageProcessorAsync.cs" />
     <Compile Include="Interfaces\IImageCache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

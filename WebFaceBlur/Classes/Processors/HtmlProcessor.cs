@@ -12,15 +12,13 @@ namespace WebFaceBlur
     public class HtmlProcessor : IHtmlProcessorAsync
     {
         private IHttpClientWrapperAsync httpClient;
-        private Uri uri;
 
-        public HtmlProcessor(IHttpClientWrapperAsync httpClient, Uri uri)
+        public HtmlProcessor(IHttpClientWrapperAsync httpClient)
         {
             this.httpClient = httpClient;
-            this.uri = uri;
         }
 
-        public async Task<string> RunAsync()
+        public async Task<string> RunAsync(Uri uri)
         {
             string htmlContent = await httpClient.GetStringAsync(uri);
 

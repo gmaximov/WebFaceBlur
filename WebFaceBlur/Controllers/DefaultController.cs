@@ -49,9 +49,9 @@ namespace WebFaceBlur.Controllers
 
                 if ( contentType.Contains("html") )
                 {
-                    HtmlProcessor processor = new HtmlProcessor(httpClient, uri);
+                    HtmlProcessor processor = new HtmlProcessor(httpClient);
 
-                    string contentHtml = await processor.RunAsync();
+                    string contentHtml = await processor.RunAsync(uri);
 
                     ViewBag.Content = contentHtml;
                     return View("Index");
@@ -64,16 +64,17 @@ namespace WebFaceBlur.Controllers
                     {
                         MicrosoftFaceDetection faceDetection = new MicrosoftFaceDetection();
                         ImageCacheInMemory imageCache = new ImageCacheInMemory();
+                        CircularBlur imageEffect = new CircularBlur(new FastGaussianBlur());
 
-                        ImageProcessor processor = new ImageProcessor(httpClient, uri, faceDetection, imageCache);
+                        ImageProcessor processor = new ImageProcessor(httpClient, faceDetection, imageCache, imageEffect);
 
-                        contentStream = await processor.RunAsync();
+                        contentStream = await processor.RunAsync(uri);
                     }
                     else
                     {
-                        DefaultProcessor processor = new DefaultProcessor(httpClient, uri);
+                        DefaultProcessor processor = new DefaultProcessor(httpClient);
 
-                        contentStream = await processor.RunAsync();
+                        contentStream = await processor.RunAsync(uri);
                     }
 
                     contentStream.Position = 0;

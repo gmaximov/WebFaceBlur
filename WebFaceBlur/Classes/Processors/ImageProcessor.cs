@@ -14,17 +14,17 @@ namespace WebFaceBlur
         private IHttpClientWrapperAsync httpClient;
         private IFaceDetection faceDetection;
         private IImageCache imageCache;
-        private Uri uri;
+        private IImageEffect imageEffect;
 
-        public ImageProcessor(IHttpClientWrapperAsync httpClient, Uri uri, IFaceDetection faceDetection, IImageCache imageCache)
+        public ImageProcessor(IHttpClientWrapperAsync httpClient, IFaceDetection faceDetection, IImageCache imageCache, IImageEffect imageEffect)
         {
             this.httpClient = httpClient;
             this.faceDetection = faceDetection;
             this.imageCache = imageCache;
-            this.uri = uri;
+            this.imageEffect = imageEffect;
         }
 
-        public async Task<MemoryStream> RunAsync()
+        public async Task<MemoryStream> RunAsync(Uri uri)
         {
             MemoryStream memoryStream = new MemoryStream();
             using ( Stream stream = await httpClient.GetStreamAsync(uri) )
@@ -54,7 +54,7 @@ namespace WebFaceBlur
                 memoryStream.Position = 0;
                 Bitmap bitmap = new Bitmap(memoryStream);
 
-                bitmap = Blur.Process(bitmap, faceRects);
+                bitmap = imageEffect.Apply(bitmap, faceRects);
 
                 memoryStream.Position = 0;
                 bitmap.Save(memoryStream, ImageFormat.Png);

@@ -10,15 +10,13 @@ namespace WebFaceBlur
     public class DefaultProcessor : IDefaultProcessorAsync
     {
         private IHttpClientWrapperAsync httpClient;
-        private Uri uri;
 
-        public DefaultProcessor(IHttpClientWrapperAsync httpClient, Uri uri)
+        public DefaultProcessor(IHttpClientWrapperAsync httpClient)
         {
             this.httpClient = httpClient;
-            this.uri = uri;
         }
 
-        public async Task<MemoryStream> RunAsync()
+        public async Task<MemoryStream> RunAsync(Uri uri)
         {
             MemoryStream memoryStream = new MemoryStream();
             using ( Stream stream = await httpClient.GetStreamAsync(uri) )
