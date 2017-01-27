@@ -7,5 +7,7 @@ namespace WebFaceBlur
 {
     public class Config
     {
+        public static string MicrosoftFaceSubscriptionKey = "";
+        public static string CDNAdress = "";
     }
 }
