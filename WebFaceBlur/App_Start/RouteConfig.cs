@@ -26,6 +26,12 @@ namespace WebFaceBlur
             );
 
             routes.MapRoute(
+                name: "Image",
+                url: "Image/{*path}",
+                defaults: new { controller = "Image", action = "Get", path = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{*path}",
                 defaults: new { controller = "Default", action = "Index", path = UrlParameter.Optional }

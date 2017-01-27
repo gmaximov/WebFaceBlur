@@ -24,21 +24,21 @@ namespace WebFaceBlur
             this.imageEffect = imageEffect;
         }
 
-        public async Task<MemoryStream> RunAsync(Uri uri)
+        public async Task<MemoryStream> RunAsync(string path)
         {
             MemoryStream memoryStream = new MemoryStream();
-            using ( Stream stream = await httpClient.GetStreamAsync(uri) )
+            using ( Stream stream = await httpClient.GetStreamAsync(path) )
             {
                 await stream.CopyToAsync(memoryStream);
             }
             memoryStream.Position = 0;
             string checksum = ImageCacheUtils.GetChecksum(memoryStream);
 
-            Rectangle[] faceRects = imageCache.Get(uri.ToString(), checksum);
+            Rectangle[] faceRects = imageCache.Get(path.ToString(), checksum);
 
             if ( faceRects == null )
             {
-                faceRects = await faceDetection.Detect(uri);
+                faceRects = await faceDetection.Detect(path);
 
                 if ( faceRects == null )
                 {
@@ -46,7 +46,7 @@ namespace WebFaceBlur
                     return memoryStream;
                 }
 
-                imageCache.Add(uri.ToString(), checksum, faceRects);
+                imageCache.Add(path.ToString(), checksum, faceRects);
             }
 
             if ( faceRects.Length > 0 )

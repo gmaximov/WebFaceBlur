@@ -12,21 +12,26 @@ namespace WebFaceBlur
     public class HtmlProcessor : IHtmlProcessorAsync
     {
         private IHttpClientWrapperAsync httpClient;
+        private string defaultPath;
+        private string CDNAdress;
 
-        public HtmlProcessor(IHttpClientWrapperAsync httpClient)
+        public HtmlProcessor(IHttpClientWrapperAsync httpClient, string defaultPath = "", string CDNAdress = "")
         {
             this.httpClient = httpClient;
+            this.defaultPath = defaultPath;
+            this.CDNAdress = CDNAdress;
         }
 
-        public async Task<string> RunAsync(Uri uri)
+        public async Task<string> RunAsync(string path)
         {
-            string htmlContent = await httpClient.GetStringAsync(uri);
+            string htmlContent = await httpClient.GetStringAsync(path);
 
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(htmlContent);
 
-            FixTag(ref doc, uri, "img", "src", true, "?path=");
-            FixTag(ref doc, uri, "a", "href", true, "?path=");
+            Uri uri = new Uri(path);
+            FixTag(ref doc, uri, "img", "src", true, CDNAdress + defaultPath);
+            FixTag(ref doc, uri, "a", "href", true, defaultPath);
             FixTag(ref doc, uri, "link", "href");
             FixTag(ref doc, uri, "script", "src");
 
@@ -46,7 +51,8 @@ namespace WebFaceBlur
                         {
                             continue;
                         }
-                        Uri newUri = null;
+                        Uri newpath = null;
+
                         string attributeValue = node.Attributes[attribute].Value;
 
                         if ( encode )
@@ -54,15 +60,15 @@ namespace WebFaceBlur
                             attributeValue = HttpUtility.HtmlDecode(attributeValue);
                         }
 
-                        if ( Uri.IsWellFormedUriString(node.Attributes[attribute].Value, UriKind.Relative) )
+                        if ( Uri.IsWellFormedUriString(attributeValue, UriKind.Relative) )
                         {
-                            newUri = new Uri(uri, attributeValue);
+                            newpath = new Uri(uri, attributeValue);
                         }
 
-                        if (newUri != null )
+                        if (newpath != null )
                         {
 
-                            attributeValue = newUri.ToString();
+                            attributeValue = newpath.ToString();
                         }
 
                         if ( encode )

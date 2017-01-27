@@ -26,6 +26,7 @@ namespace WebFaceBlur
                     cloneBitmap = blurAlgorithm.Run(cloneBitmap, blurStrength);
 
                     GraphicsPath path = new GraphicsPath();
+                    
                     path.AddEllipse(rect);
                     g.Clip = new Region(path);
 

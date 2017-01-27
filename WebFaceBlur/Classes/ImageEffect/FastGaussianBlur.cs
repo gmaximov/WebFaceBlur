@@ -15,7 +15,6 @@ namespace WebFaceBlur
             return gaussianBlur.Process(blurStrength);
         }
 
-
         //https://github.com/mdymel/superfastblur/tree/master/SuperfastBlur
         private class GaussianBlur
         {

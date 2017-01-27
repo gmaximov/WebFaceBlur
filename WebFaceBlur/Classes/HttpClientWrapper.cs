@@ -18,21 +18,21 @@ namespace WebFaceBlur
             httpClient = new HttpClient();
         }
 
-        public async Task<Stream> GetStreamAsync(Uri uri)
+        public async Task<Stream> GetStreamAsync(string path)
         {
-            return await httpClient.GetStreamAsync(uri);
+            return await httpClient.GetStreamAsync(path);
         }
 
-        public async Task<string> GetStringAsync(Uri uri)
+        public async Task<string> GetStringAsync(string path)
         {
-            return await httpClient.GetStringAsync(uri);
+            return await httpClient.GetStringAsync(path);
         }
 
-        public async Task<HttpContentHeaders> GetHeadersAsync(Uri uri)
+        public async Task<HttpResponseMessage> GetHeadersAsync(string path)
         {
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Head, uri);
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Head, path);
             HttpResponseMessage response = await httpClient.SendAsync(request);
-            return response.Content.Headers;
+            return response;
         }
     }
 }

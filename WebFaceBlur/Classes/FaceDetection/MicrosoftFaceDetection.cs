@@ -13,19 +13,23 @@ namespace WebFaceBlur
 {
     class MicrosoftFaceDetection : IFaceDetection
     {
-        private static string key = "";
-        private static IFaceServiceClient faceServiceClient = new FaceServiceClient(key);
+        private IFaceServiceClient faceServiceClient;
 
-        public async Task<Rectangle[]> Detect(Uri uri)
+        public MicrosoftFaceDetection(string key)
         {
-            if ( key == "" )
+            if (key == string.Empty )
             {
-                throw new Exception("Configure subscription key in WebFaceBlur.FaceDetection");
+                throw new Exception("Microsoft Face subscription key is empty.");
             }
+            faceServiceClient = new FaceServiceClient(key);
+        }
+
+        public async Task<Rectangle[]> Detect(string path)
+        {
             try
             {
-                var faces = await faceServiceClient.DetectAsync(uri.ToString());
-                var faceRects = faces.Select(face => new Rectangle(face.FaceRectangle.Left, face.FaceRectangle.Top, face.FaceRectangle.Width, face.FaceRectangle.Height) );
+                var faces = await faceServiceClient.DetectAsync(path.ToString());
+                var faceRects = faces.Select(face => new Rectangle(face.FaceRectangle.Left, face.FaceRectangle.Top, face.FaceRectangle.Width-1, face.FaceRectangle.Height-1) );
                 return faceRects.ToArray();
             }
             catch ( Exception )

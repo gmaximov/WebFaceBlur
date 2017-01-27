@@ -10,7 +10,7 @@ namespace WebFaceBlur
 {
     public class ImageCacheInMemory : IImageCache
     {
-        private static TimeSpan expireTime = TimeSpan.FromDays(1);
+        private static TimeSpan expireTime = TimeSpan.FromHours(1);
         private static readonly object cacheLock = new object();
 
         public ImageCacheInMemory() : this(expireTime)

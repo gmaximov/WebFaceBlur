@@ -16,10 +16,10 @@ namespace WebFaceBlur
             this.httpClient = httpClient;
         }
 
-        public async Task<MemoryStream> RunAsync(Uri uri)
+        public async Task<MemoryStream> RunAsync(string path)
         {
             MemoryStream memoryStream = new MemoryStream();
-            using ( Stream stream = await httpClient.GetStreamAsync(uri) )
+            using ( Stream stream = await httpClient.GetStreamAsync(path) )
             {
                 await stream.CopyToAsync(memoryStream);
             }

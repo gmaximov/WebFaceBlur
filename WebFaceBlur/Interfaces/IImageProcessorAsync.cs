@@ -9,6 +9,6 @@ namespace WebFaceBlur
 {
     public interface IImageProcessorAsync
     {
-        Task<MemoryStream> RunAsync(Uri uri);
+        Task<MemoryStream> RunAsync(string path);
     }
 }

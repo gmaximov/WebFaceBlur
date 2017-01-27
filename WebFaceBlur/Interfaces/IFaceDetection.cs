@@ -9,6 +9,6 @@ namespace WebFaceBlur
 {
     public interface IFaceDetection
     {
-        Task<Rectangle[]> Detect(Uri uri);
+        Task<Rectangle[]> Detect(string path);
     }
 }

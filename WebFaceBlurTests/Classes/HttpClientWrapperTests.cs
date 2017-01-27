@@ -15,11 +15,11 @@ namespace WebFaceBlur.Classes.Tests
         public async void GetContentType_Image_Test()
         {
             HttpClientWrapper httpclient = new HttpClientWrapper();
-            Uri uri = new Uri("http://www.iconsdb.com/icons/preview/white/square-xxl.png");
+            string path = "http://www.iconsdb.com/icons/preview/white/square-xxl.png";
 
-            var headers = await httpclient.GetHeadersAsync(uri);
+            var response = await httpclient.GetHeadersAsync(path);
 
-            string contentType = headers.ContentType.MediaType;
+            string contentType = response.Content.Headers.ContentType.MediaType;
 
             Assert.IsTrue(contentType.Contains("image"));
         }
@@ -28,11 +28,11 @@ namespace WebFaceBlur.Classes.Tests
         public async void GetContentType_ImagePNG_Test()
         {
             HttpClientWrapper httpclient = new HttpClientWrapper();
-            Uri uri = new Uri("http://www.iconsdb.com/icons/preview/white/square-xxl.png");
+            string path = "http://www.iconsdb.com/icons/preview/white/square-xxl.png";
 
-            var headers = await httpclient.GetHeadersAsync(uri);
+            var response = await httpclient.GetHeadersAsync(path);
 
-            string contentType = headers.ContentType.MediaType;
+            string contentType = response.Content.Headers.ContentType.MediaType;
 
             Assert.IsTrue(contentType.Contains("image/png"));
         }
@@ -41,11 +41,11 @@ namespace WebFaceBlur.Classes.Tests
         public async void GetContentType_Html_Test()
         {
             HttpClientWrapper httpclient = new HttpClientWrapper();
-            Uri uri = new Uri("http://www.iconsdb.com/");
+            string path = "http://www.iconsdb.com/";
 
-            var headers = await httpclient.GetHeadersAsync(uri);
+            var response = await httpclient.GetHeadersAsync(path);
 
-            string contentType = headers.ContentType.MediaType;
+            string contentType = response.Content.Headers.ContentType.MediaType;
 
             Assert.IsTrue(contentType.Contains("html"));
         }

@@ -114,17 +114,18 @@
     <Compile Include="Classes\Base64Helper.cs" />
     <Compile Include="Classes\ImageCache\DetectedImage.cs" />
     <Compile Include="Classes\ImageCache\ImageCacheInMemory.cs" />
+    <Compile Include="Classes\ImageCache\ImageCacheStub.cs" />
     <Compile Include="Classes\ImageCache\ImageCacheUtils.cs" />
     <Compile Include="Classes\ImageEffect\FastGaussianBlur.cs" />
     <Compile Include="Classes\Processors\DefaultProcessor.cs" />
     <Compile Include="Classes\HttpClientWrapper.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Interfaces\IBlurAlgorithm.cs" />
     <Compile Include="Interfaces\IDefaultProcessorAsync.cs" />
     <Compile Include="Interfaces\IHttpClientWrapper.cs" />
     <Compile Include="Interfaces\IHtmlProcessorAsync.cs" />
     <Compile Include="Classes\Processors\ImageProcessor.cs" />
     <Compile Include="Classes\Processors\HtmlProcessor.cs" />
-    <Compile Include="Classes\Processors\Processor.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\AdressFormController.cs" />
     <Compile Include="Classes\FaceDetection\MicrosoftFaceDetection.cs" />
@@ -149,8 +150,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout_copy.cshtml" />
     <Content Include="Views\Default\Index.cshtml" />
-    <None Include="Properties\PublishProfiles\myasp.net.pubxml" />
     <Content Include="Views\AdressForm\Form.cshtml" />
+    <None Include="Properties\PublishProfiles\webfaceblur - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -161,6 +162,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Image\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

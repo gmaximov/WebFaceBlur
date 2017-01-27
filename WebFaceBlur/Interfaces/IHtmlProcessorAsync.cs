@@ -6,6 +6,6 @@ namespace WebFaceBlur
 {
     public interface IHtmlProcessorAsync
     {
-        Task<string> RunAsync(Uri uri);
+        Task<string> RunAsync(string path);
     }
 }

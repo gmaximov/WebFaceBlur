@@ -22,7 +22,7 @@ namespace WebFaceBlur.Controllers
                 return Redirect("~/");
             }
             path = HttpUtility.UrlEncode(path);
-            return Redirect("~/?path=" + path);
+            return Redirect(string.Format("~/?path={0}", path));
         }
     }
 }
