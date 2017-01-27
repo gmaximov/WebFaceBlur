@@ -9,5 +9,6 @@ namespace WebFaceBlur
     {
         public static string MicrosoftFaceSubscriptionKey = "";
         public static string CDNAdress = "";
+        public static TimeSpan CacheLifeTime = TimeSpan.FromHours(1);
     }
 }
