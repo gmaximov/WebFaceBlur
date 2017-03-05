@@ -4,13 +4,12 @@ using System.Drawing;
 using System.Linq;
 using System.Web;
 
-namespace WebFaceBlur
+namespace WebFaceBlur.App.ImageCache
 {
     public class DetectedImage
     {
         public string checksum;
         public Rectangle[] faceRects;
-        public DateTime expireTime;
 
         public DetectedImage(string checksum, Rectangle[] faceRects)
         {

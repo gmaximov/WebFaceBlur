@@ -6,15 +6,22 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using WebFaceBlur.App.Http;
+using WebFaceBlur.App.ImageCache;
+using WebFaceBlur.App.ImageEffect;
 
-namespace WebFaceBlur
+namespace WebFaceBlur.App.Processors.Image
 {
     public class ImageProcessor : IImageProcessorAsync
     {
-        private IHttpClientWrapperAsync httpClient;
-        private IFaceDetection faceDetection;
-        private IImageCache imageCache;
-        private IImageEffect imageEffect;
+        protected internal IHttpClientWrapperAsync httpClient;
+        protected internal IFaceDetection faceDetection;
+        protected internal IImageCache imageCache;
+        protected internal IImageEffect imageEffect;
+
+        public ImageProcessor() : this(ServiceLocator.Resolve<IHttpClientWrapperAsync>(), ServiceLocator.Resolve<IFaceDetection>(), ServiceLocator.Resolve<IImageCache>(), ServiceLocator.Resolve<IImageEffect>())
+        {
+        }
 
         public ImageProcessor(IHttpClientWrapperAsync httpClient, IFaceDetection faceDetection, IImageCache imageCache, IImageEffect imageEffect)
         {

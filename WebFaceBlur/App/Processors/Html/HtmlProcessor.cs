@@ -6,23 +6,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using WebFaceBlur.App.Http;
 
-namespace WebFaceBlur
+namespace WebFaceBlur.App.Processors.Html
 {
     public class HtmlProcessor : IHtmlProcessorAsync
     {
-        private IHttpClientWrapperAsync httpClient;
-        private string defaultPath;
-        private string CDNAdress;
+        protected internal IHttpClientWrapperAsync httpClient;
+        protected internal string CDNAdress;
 
-        public HtmlProcessor(IHttpClientWrapperAsync httpClient, string defaultPath = "", string CDNAdress = "")
+        public HtmlProcessor(string defaultPath = "") : this(ServiceLocator.Resolve<IHttpClientWrapperAsync>(), Config.CDNAdress)
+        {
+        }
+
+        public HtmlProcessor(IHttpClientWrapperAsync httpClient, string CDNAdress)
         {
             this.httpClient = httpClient;
-            this.defaultPath = defaultPath;
             this.CDNAdress = CDNAdress;
         }
 
-        public async Task<string> RunAsync(string path)
+        public async Task<string> RunAsync(string path, string controllerPath)
         {
             string htmlContent = await httpClient.GetStringAsync(path);
 
@@ -30,8 +33,8 @@ namespace WebFaceBlur
             doc.LoadHtml(htmlContent);
 
             Uri uri = new Uri(path);
-            FixTag(ref doc, uri, "img", "src", true, CDNAdress + defaultPath);
-            FixTag(ref doc, uri, "a", "href", true, defaultPath);
+            FixTag(ref doc, uri, "img", "src", true, CDNAdress + controllerPath);
+            FixTag(ref doc, uri, "a", "href", true, controllerPath);
             FixTag(ref doc, uri, "link", "href");
             FixTag(ref doc, uri, "script", "src");
 

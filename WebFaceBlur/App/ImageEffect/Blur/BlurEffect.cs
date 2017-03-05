@@ -1,17 +1,19 @@
 ﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 
-namespace WebFaceBlur
+namespace WebFaceBlur.App.ImageEffect.Blur
 {
-    public class CircularBlur : IImageEffect
+    public class BlurEffect : IImageEffect
     {
-        private int blurStrength;
-        private IBlurAlgorithm blurAlgorithm;
+        protected internal IBlurAlgorithm blurAlgorithm;
 
-        public CircularBlur(IBlurAlgorithm blurAlgorithm, int blurStrength = 10)
+        public BlurEffect() : this(ServiceLocator.Resolve<IBlurAlgorithm>())
+        {
+        }
+
+        public BlurEffect(IBlurAlgorithm blurAlgorithm)
         {
             this.blurAlgorithm = blurAlgorithm;
-            this.blurStrength = blurStrength;
         }
 
         public Bitmap Apply(Bitmap image, Rectangle[] rectangles)
@@ -23,7 +25,7 @@ namespace WebFaceBlur
                 {
                     Bitmap cloneBitmap = image.Clone(rect, image.PixelFormat);
 
-                    cloneBitmap = blurAlgorithm.Run(cloneBitmap, blurStrength);
+                    cloneBitmap = blurAlgorithm.Run(cloneBitmap);
 
                     GraphicsPath path = new GraphicsPath();
                     

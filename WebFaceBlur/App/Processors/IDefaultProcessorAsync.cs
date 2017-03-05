@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebFaceBlur
+namespace WebFaceBlur.App.Processors
 {
-    public interface IImageProcessorAsync
+    public interface IDefaultProcessorAsync
     {
         Task<MemoryStream> RunAsync(string path);
     }

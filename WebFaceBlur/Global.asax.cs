@@ -13,6 +13,7 @@ namespace WebFaceBlur
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            ServiceLocatorConfig.RegisterServices();
         }
     }
 }

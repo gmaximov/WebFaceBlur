@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebFaceBlur
+namespace WebFaceBlur.App.ImageEffect
 {
     public interface IImageEffect
     {

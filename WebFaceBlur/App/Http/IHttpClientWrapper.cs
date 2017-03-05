@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace WebFaceBlur
+namespace WebFaceBlur.App.Http
 {
     public interface IHttpClientWrapperAsync
     {

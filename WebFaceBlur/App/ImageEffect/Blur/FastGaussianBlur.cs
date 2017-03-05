@@ -5,11 +5,22 @@ using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
-namespace WebFaceBlur
+namespace WebFaceBlur.App.ImageEffect.Blur
 {
     public class FastGaussianBlur : IBlurAlgorithm
     {
-        public Bitmap Run(Bitmap image, int blurStrength)
+        protected internal int blurStrength;
+
+        public FastGaussianBlur() : this(Config.BlurStrength)
+        {
+        }
+
+        public FastGaussianBlur(int blurStrength)
+        {
+            this.blurStrength = blurStrength;
+        }
+
+        public Bitmap Run(Bitmap image)
         {
             GaussianBlur gaussianBlur = new GaussianBlur(image);
             return gaussianBlur.Process(blurStrength);

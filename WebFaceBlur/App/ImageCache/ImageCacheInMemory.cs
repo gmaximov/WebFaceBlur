@@ -6,19 +6,21 @@ using System.Runtime.Caching;
 using System.Threading;
 using System.Web;
 
-namespace WebFaceBlur
+namespace WebFaceBlur.App.ImageCache
 {
     public class ImageCacheInMemory : IImageCache
     {
-        private static TimeSpan expireTime = TimeSpan.FromHours(1);
-        private static readonly object cacheLock = new object();
+        protected internal TimeSpan expireTime;
+        protected internal static readonly object cacheLock = new object();
 
-        public ImageCacheInMemory() : this(expireTime)
+        public ImageCacheInMemory()
         {
+            this.expireTime = Config.CacheLifeTime;
         }
+
         public ImageCacheInMemory(TimeSpan expireTime)
         {
-            ImageCacheInMemory.expireTime = expireTime;
+            this.expireTime = expireTime;
         }
 
         public Rectangle[] Get(string fileName, string checksum)

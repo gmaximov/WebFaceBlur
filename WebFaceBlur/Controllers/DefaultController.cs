@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using WebFaceBlur.App.Http;
+using WebFaceBlur.App.Processors;
+using WebFaceBlur.App.Processors.Html;
 
 namespace WebFaceBlur.Controllers
 {
@@ -53,9 +56,9 @@ namespace WebFaceBlur.Controllers
 
             if ( contentType.Contains("html") )
             {
-                HtmlProcessor processor = new HtmlProcessor(httpClient, "/?path=", Config.CDNAdress);
+                HtmlProcessor processor = new HtmlProcessor();
 
-                string contentHtml = await processor.RunAsync(path);
+                string contentHtml = await processor.RunAsync(path, "/?path=");
 
                 ViewBag.Content = contentHtml;
                 return View("Index");
@@ -70,7 +73,7 @@ namespace WebFaceBlur.Controllers
                 }
                 else
                 {
-                    DefaultProcessor processor = new DefaultProcessor(httpClient);
+                    DefaultProcessor processor = new DefaultProcessor();
 
                     contentStream = await processor.RunAsync(path);
 

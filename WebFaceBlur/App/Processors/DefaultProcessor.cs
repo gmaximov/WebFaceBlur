@@ -4,12 +4,17 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using WebFaceBlur.App.Http;
 
-namespace WebFaceBlur
+namespace WebFaceBlur.App.Processors
 {
     public class DefaultProcessor : IDefaultProcessorAsync
     {
-        private IHttpClientWrapperAsync httpClient;
+        protected internal IHttpClientWrapperAsync httpClient;
+
+        public DefaultProcessor() : this(ServiceLocator.Resolve<IHttpClientWrapperAsync>())
+        {
+        }
 
         public DefaultProcessor(IHttpClientWrapperAsync httpClient)
         {

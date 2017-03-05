@@ -9,19 +9,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace WebFaceBlur
+namespace WebFaceBlur.App.FaceDetection
 {
     class MicrosoftFaceDetection : IFaceDetection
     {
-        private IFaceServiceClient faceServiceClient;
+        protected internal IFaceServiceClient faceServiceClient;
 
-        public MicrosoftFaceDetection(string key)
+        public MicrosoftFaceDetection()
         {
-            if (key == string.Empty )
+            if (Config.MicrosoftFaceSubscriptionKey == string.Empty )
             {
                 throw new Exception("Microsoft Face subscription key is empty.");
             }
-            faceServiceClient = new FaceServiceClient(key);
+            faceServiceClient = new FaceServiceClient(Config.MicrosoftFaceSubscriptionKey);
         }
 
         public async Task<Rectangle[]> Detect(string path)

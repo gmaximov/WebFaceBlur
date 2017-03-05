@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+using WebFaceBlur.App.Http;
+using WebFaceBlur.App.Processors.Image;
 
 namespace WebFaceBlur.Controllers
 {
@@ -48,14 +50,7 @@ namespace WebFaceBlur.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-
-            MicrosoftFaceDetection faceDetection = new MicrosoftFaceDetection(Config.MicrosoftFaceSubscriptionKey);
-            ImageCacheInMemory imageCache = new ImageCacheInMemory();
-            ImageCacheStub imageCache_stub = new ImageCacheStub();
-            CircularBlur imageEffect = new CircularBlur(new FastGaussianBlur(), 15);
-
-            ImageProcessor processor = new ImageProcessor(httpClient, faceDetection, imageCache, imageEffect);
+            ImageProcessor processor = new ImageProcessor();
 
             MemoryStream contentStream = await processor.RunAsync(path);
 

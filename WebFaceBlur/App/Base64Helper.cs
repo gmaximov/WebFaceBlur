@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace WebFaceBlur
+namespace WebFaceBlur.App
 {
     public class Base64Helper
     {

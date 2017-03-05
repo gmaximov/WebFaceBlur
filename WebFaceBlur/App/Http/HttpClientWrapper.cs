@@ -7,11 +7,11 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace WebFaceBlur
+namespace WebFaceBlur.App.Http
 {
     public class HttpClientWrapper : IHttpClientWrapperAsync
     {
-        public HttpClient httpClient;
+        protected internal HttpClient httpClient;
 
         public HttpClientWrapper()
         {

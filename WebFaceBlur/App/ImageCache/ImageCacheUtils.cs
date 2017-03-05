@@ -2,7 +2,7 @@
 using System.IO;
 using System.Security.Cryptography;
 
-namespace WebFaceBlur
+namespace WebFaceBlur.App.ImageCache
 {
     public class ImageCacheUtils
     {
